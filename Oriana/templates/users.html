@@ -1,0 +1,51 @@
+{% extends "base2.html" %}
+
+{% block title %}Users{% endblock %}
+
+{% block content %}
+        <link rel="stylesheet" type="text/css" href="/static/css/datatables.min.css"/>
+		<script type="text/javascript" src="/static/js/datatables.min.js"></script>
+
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$('#example').DataTable();
+			} );
+		</script>
+
+  <h2>Users</h2>
+  <p></p>
+  <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>LanId</th>
+        <th>Succ Auth Events</th>
+        <th>Failed Auth Events</th>
+        <th># Unique Succ Hosts Local</th>
+        <th># Unique Succ Hosts Remote</th>
+        <th># Unique Failed Hosts Remote</th>
+        <th># Hosts RDP</th>
+        <th># Hosts Network</th>
+      </tr>
+    </thead>
+    <tbody>
+
+        {% for user in users%}
+        <tr>
+        <td><a href="/user/{{user.id}}">{{user.id}}</a></td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.succ_auth_events }}</td>
+        <td>{{ user.failed_auth_events }}</td>
+        <td>{{ user.unique_succ_local_hosts }} </td>
+        <td>{{ user.unique_succ_remote_hosts }} </td>
+        <td>{{ user.unique_failed_remote_hosts }} </td>
+        <td>{{ user.unique_succ_rdp_hosts }} </td>
+        <td>{{ user.unique_succ_network_hosts }} </td>
+        <!--<td>{{ user.uniqueremote }} => {{user.uniqueremote_rdp }}-RDP and {{user.uniqueremote_network }}-Network</td> !-->
+        </tr>
+        {% endfor %}
+
+    </tbody>
+  </table>
+
+{% endblock %}

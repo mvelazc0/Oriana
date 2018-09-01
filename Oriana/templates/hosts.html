@@ -1,0 +1,43 @@
+{% extends "base2.html" %}
+
+{% block title %}Hosts{% endblock %}
+
+{% block content %}
+
+        <link rel="stylesheet" type="text/css" href="/static/css/datatables.min.css"/>
+		<script type="text/javascript" src="/static/js/datatables.min.js"></script>
+
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$('#example').DataTable();
+			} );
+		</script>
+  <h2>Hosts</h2>
+  <p></p>
+  <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Hostname</th>
+        <th>Succesfull Auth Events</th>
+        <th>Failed Auth Events</th>
+        <th># Unique Remote Users</th>
+        <th>#Unique Local Users</th>
+      </tr>
+    </thead>
+    <tbody>
+
+        {% for host in hosts %}
+        <tr>
+        <td><a href="/host/{{host.id}}">{{host.id}}</a></td>
+        <td>{{ host.hostname }}</td>
+        <td>{{ host.total_succ_auths}}</td>
+        <td>{{ host.total_failed_auths}}</td>
+        <td>{{ host.unique_succ_remote_users}}</td>
+        <td>{{ host.unique_succ_local_users}}</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+  </table>
+{% endblock %}

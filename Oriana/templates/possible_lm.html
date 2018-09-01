@@ -1,0 +1,58 @@
+{% extends "base2.html" %}
+
+{% block title %}Possible Lateral Movement Events{% endblock %}
+
+{% block content %}
+        <link rel="stylesheet" type="text/css" href="/static/css/datatables.min.css"/>
+		<script type="text/javascript" src="/static/js/datatables.min.js"></script>
+
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$('#example').DataTable();
+			} );
+		</script>
+
+  <h2>{{events |length}} Possible Lateral Movement Events</h2>
+  <p></p>
+  <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Host</th>
+        <th>User</th>
+        <th>Source Ip</th>
+        <th>Type</th>
+        <th>Reason</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for e in events %}
+        <tr>
+        <td><a href="/possible_lm_detail/{{e.id}}">{{e.id}}</a></td>
+        {% if e.event_7045 %}
+        <td>{{ e.event_7045.host}}</td>
+        <td>{{ e.auth.user }}</td>
+        <td>{{ e.auth.sourceip}}</td>
+        <td>Service Creation</td>
+        <td>{{ e.reason}}</td>
+        {% endif%}
+        {% if e.event_4698 %}
+        <td>{{ e.event_4698.host}}</td>
+        <td>{{ e.auth.user }}</td>
+        <td>{{ e.auth.sourceip}}</td>
+        <td>Scheduled Task</td>
+        <td>{{ e.reason}}</td>
+        {% endif%}
+        {% if e.event_wmi_2 %}
+        <td>{{ e.event_wmi_2.host}}</td>
+        <td>{{ e.auth.user }}</td>
+        <td>{{ e.auth.sourceip}}</td>
+        <td>WMI Exec</td>
+        <td>{{ e.reason}}</td>
+        {% endif%}
+        </tr>
+        {% endfor %}
+
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base2.html" %}
+
+{% block title %}Command Line{% endblock %}
+
+{% block content %}
+		<link rel="stylesheet" type="text/css" href="/static/css/datatables.min.css"/>
+		<script type="text/javascript" src="/static/js/datatables.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$('#example').DataTable();
+			} );
+		</script>
+  <h2>Command Line</h2>
+  <p></p>
+  <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Cmdline</th>
+        <th>Count</th>
+        <th># of Characters</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for c in cmdlines %}
+        <tr>
+
+
+        <td><a href="/fa_cmdline/{{c.id}}">{{c.id}}</a></td>
+        <td style="word-wrap: break-word;min-width: 160px;max-width: 300px;">{{ c.imagepath|truncatechars:255}}</td>
+        <td>{{ c.count}}</td>
+        <td>{{ c.characterscount}}</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+  </table>
+{% endblock %}

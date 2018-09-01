@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Potential Lateral Movement Session #{% endblock %}
+
+{% block content %}
+<div class="row" >
+    <h2>Lateral Movement Session #{{aprogression.id}}</h2>
+    <dl class="dl-horizontal">
+      <dt>Start Time</dt>
+      <dd>{{ aprogression.start}}</a></dd>
+      <dt>End Time</dt>
+      <dd>{{ aprogression.end}}</a></dd>
+      <dt>Duration</dt>
+      <dd>{{ aprogression.delta}}</dd>
+      <dt>Total Nomber of Hosts</dt>
+      <dd>{{ aprogression.hosts}}</dd>
+      <dt>Total Nomber of Users</dt>
+      <dd>{{ aprogression.users}}</dd>
+    </dl>
+</div>
+<div class="row">
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/timeline.css" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="/static/css/awesome.min.css">
+        <div class="page-header">
+        <h1 id="timeline">Timeline</h1>
+    </div>
+
+<div class="container-fluid">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="timeline">
+                    {% for event in events %}
+                    <span class="timeline-label">
+                        <span class="label label-primary">{{event.auth.time|date:"N d, Y, h:i:s a" }}</span>
+                    </span>
+                    <div class="timeline-item timeline-item-{% cycle 'left' 'right' %}">
+                        <div class="timeline-point timeline-point-blank"></div>
+                        <div class="timeline-event timeline-event-default">
+                            <div class="timeline-heading">
+                                <h4>Victim: {{event.auth.host}}</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p class="text-left">
+                                     <dl class="dl-horizontal">
+                                      <dt>Type</dt>
+                                      {% if event.event_7045 %}
+                                      <dd>Malicious Service </dd>
+                                      {% elif event.event_4698 %}
+                                      <dd>Malicious Task</dd>
+                                      {% elif event.event_wmi_2 %}
+                                      <dd>WMI Execution</dd>
+                                      {% endif %}
+                                      <dt>Username</dt>
+                                      <dd>{{ event.auth.user}}</a></dd>
+                                      <dt>Source Host</dt>
+                                      <dd>{{ event.auth.sourcehost}}</a></dd>
+                                      <dt>Source Ip</dt>
+                                      <dd>{{ event.auth.sourceip}}</dd>
+                                      {% if event.event_7045 %}
+                                      <dt>Service Name</dt>
+                                      <dd>{{ event.event_7045.service.servicename}}</dd>
+                                      <dt>Cmdline</dt>
+                                      <dd>{{ event.event_7045.service.imagepath}}</dd>
+                                      {% elif event.event_4698 %}
+                                      <dt>Task Name</dt>
+                                      <dd>{{ event.event_4698.task.taskname}}</dd>
+                                      <dt>Cmdline</dt>
+                                      <dd>{{ event.event_4698.task.imagepath}}</dd>
+                                      <dt>Arguments</dt>
+                                      <dd>{{ event.event_4698.task.arguments}}</dd>
+                                      {% endif %}
+
+
+
+                                    </dl>
+                                </p>
+                            </div>
+                            <div class="timeline-footer">
+                                <p class="text-right"></p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <span class="timeline-label">
+                        <button class="btn btn-danger"><i class="fa fa-ambulance"></i></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>{% block title %}Oriana - Hunt for Lateral Movement{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="/static/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/starter-template.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="/static/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="/static/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>-->
+      <!--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
+      <script src="/static/js/html5shiv.min.js"></script>
+      <script src="/static/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+  </head>
+
+  <body>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Oriana</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/dashboard/">Dashboard</a></li>
+           <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Entities<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+              <li><a href="/users/">Users</a></li>
+              <li><a href="/hosts/">Hosts</a></li>
+              <li><a href="/shosts/">Source Hosts</a></li>
+              <li><a href="/services/">Services</a></li>
+              <li><a href="/tasks/">Scheduled Tasks</a></li>
+              <li role="separator" class="divider"></li>
+              <li class="dropdown-header">Extracted Entities</li>
+              <li><a href="/fa_cmdline/">Cmdline</a></li>
+              </ul>
+          </li>
+             <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Suspicious<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/suspicious_user_behavior/">Suspicious User Behavior</a></li>
+                  <li><a href="/suspicious_source_behavior/">Suspicious Source Behavior</a></li>
+                  <li><a href="/possible_lm/">Possible Lateral Movement Events</a></li>
+                  <li><a href="/lm_sessions/">Possible Lateral Movement Sessions</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="/suspicious_behavior/">Suspicious Behavior</a></li>
+
+                </ul>
+              </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+    <div class="container">
+    {% block content %}{% endblock %}
+    </div><!-- /.container -->
+
+  </body>
+</html>

@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}Possible Lateral Movement{% endblock %}
+
+{% block content %}
+<div class="row" >
+    <h3>Details</h3>
+    <dl class="dl-horizontal">
+      {% if event.event_7045 %}
+      <dt>Victim</dt>
+      <dd><a href="/host/{{ event.auth.host.id}}">{{ event.auth.host}}</a></dd>
+      <dt>User</dt>
+      <dd><a href="/user/{{ event.auth.user.id}}">{{ event.auth.user}}</a></dd>
+      <dt>Command Line</dt>
+      <dd >{{ event.event_7045.service.imagepath |truncatechars:200}}</dd>
+      <dt>Source Ip</dt>
+      <dd>{{ event.auth.sourceip}}</dd>
+      <dt>Source Host</dt>
+      <dd>{{ event.auth.sourcehost }}</dd>
+      <dt>Type</dt>
+      <dd>Service Creation</dd>
+      {% elif event.event_4698 %}
+      <dt>Victim</dt>
+      <dd><a href="/host/{{ event.auth.host.id}}">{{ event.auth.host}}</a></dd>
+      <dt>User</dt>
+      <dd><a href="/user/{{ event.auth.user.id}}">{{ event.auth.user}}</a></dd>
+      <dt>Command Line</dt>
+      <dd>{{ event.event_4698.task.imagepath}}</dd>
+      <dt>Arguments</dt>
+      <dd>{{ event.event_4698.task.arguments}}</dd>
+      <dt>Source Ip</dt>
+      <dd>{{ event.auth.sourceip}}</dd>
+      <dt>Source Host</dt>
+      <dd>{{ event.auth.sourcehost }}</dd>
+      <dt>Type</dt>
+      <dd>Scheduled Task</dd>
+      {% elif event.event_wmi_2 %}
+      <dt>Victim</dt>
+      <dd><a href="/host/{{ event.auth.host.id}}">{{ event.auth.host}}</a></dd>
+      <dt>User</dt>
+      <dd><a href="/user/{{ event.auth.user.id}}">{{ event.auth.user}}</a></dd>
+      <dt>Command Line</dt>
+      <dd>:(</dd>
+      <dt>Source Ip</dt>
+      <dd>{{ event.auth.sourceip}}</dd>
+      <dt>Source Host</dt>
+      <dd>{{ event.auth.sourcehost }}</dd>
+      <dt>Type</dt>
+      <dd>Wmi Execution</dd>
+      {% endif %}
+    </dl>
+</div>
+<div class="row" >
+  <h4>Authentication Event</h4>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Username</th>
+        <th>Host</th>
+        <th>Source Workstation</th>
+        <th>Source Ip</th>
+        <th>Logon Type</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>{{ event.auth.time|date:"N d, Y, h:i:s a"}}</td>
+        <td>{{ event.auth.user}}</td>
+        <td>{{ event.auth.host}}</td>
+        <td>{{ event.auth.sourcehost }}</td>
+        <td>{{ event.auth.sourceip}}</td>
+        <td>{{ event.auth.logontype}}</td>
+        </tr>
+
+    </tbody>
+  </table>
+</div>
+<div class="row" >
+  {% if event.event_7045 %}
+  <h4>Service Creation Event</h4>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Host</th>
+        <th>Service Name</th>
+        <th>Image Path</th>
+        <th>Service Type</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>{{ event.event_7045.time|date:"N. d, Y, h:i:s A"}}</td>
+        <td>{{ event.event_7045.host}}</td>
+        <td>{{ event.event_7045.service.servicename}}</td>
+        <td style="word-wrap: break-word;min-width: 160px;max-width: 300px;">{{ event.event_7045.service.imagepath}}</td>
+        <td>{{ event.event_7045.service.servicetype}}</td>
+        </tr>
+
+    </tbody>
+  </table>
+    {% endif %}
+  {% if event.event_4698 %}
+  <h4>Scheduled Task Event</h4>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Host</th>
+        <th>Taskname</th>
+        <th>Image Path</th>
+        <th>Arguments</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>{{ event.event_4698.time|date:"N. d, Y, h:i:s A"}}</td>
+        <td>{{ event.event_4698.host}}</td>
+        <td>{{ event.event_4698.task.taskname}}</td>
+        <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{ event.event_4698.task.imagepath}}</td>
+        <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{ event.event_4698.task.arguments}}</td>
+        </tr>
+
+    </tbody>
+  </table>
+    {% endif %}
+
+     {% if event.event_wmi_2 %}
+  <h4>WMI Exec Event</h4>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Host</th>
+        <th>WMI Operation Id</th>
+        <th>WMI Operation</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>{{ event.event_wmi_2.time|date:"N. d, Y, h:i:s A"}}</td>
+        <td>{{ event.event_wmi_2.host}}</td>
+        <td>{{ event.event_wmi_2.operationid}}</td>
+        <td>{{ event.event_wmi_2.operation}}</td>
+        </tr>
+
+    </tbody>
+  </table>
+    {% endif %}
+
+</div>
+{% endblock %}

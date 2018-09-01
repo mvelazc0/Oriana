@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="row" >
+
+    <div class="page-header">
+	<h1>Dashboard</h1>
+    </div><!-- header -->
+        <div class="col-sm-3">
+          <div class="well">
+        <h2>{{hosts}}</h2>
+        <h6>Hosts</h6>
+    </div>
+    </div>
+    <div class="col-sm-3" >
+        <div class="well">
+        <h2>{{users}}</h2>
+        <h6>Users</h6>
+        </div>
+    </div>
+
+        <div class="col-sm-3">
+    <div class="well">
+        <h2>{{uservices}}</h2>
+        <h6>Unique Services</h6>
+    </div>
+    </div>
+
+            <div class="col-sm-3">
+    <div class="well">
+        <h2>{{utasks}}</h2>
+        <h6>Unique Tasks</h6>
+    </div>
+    </div>
+
+
+</div><!-- row -->
+
+
+<div class="row" >
+
+    <div class="col-sm-3">
+    <div class="well">
+        <h2>{{auths}}</h2>
+        <h6>Authentication Events</h6>
+    </div>
+    </div>
+
+        <div class="col-sm-3">
+    <div class="well">
+        <h2>{{services}}</h2>
+        <h6>New Service Events</h6>
+    </div>
+    </div>
+
+        <div class="col-sm-3">
+    <div class="well">
+        <h2>{{tasks}}</h2>
+        <h6>New Scheduled Task Events</h6>
+    </div>
+    </div>
+            <div class="col-sm-3">
+    <div class="well">
+        <h2>{{wmis}}</h2>
+        <h6>WMI ProcessCreate Events</h6>
+    </div>
+    </div>
+
+</div>
+
+<div class="row" >
+
+    <div class="col-sm-3">
+    <div class="well">
+        <h2>{{speciallogons}}</h2>
+        <h6>Special Logon Events</h6>
+    </div>
+    </div>
+
+    <div class="col-sm-3">
+    <div class="well">
+        <h2>{{fileshares}}</h2>
+        <h6>File Share Events</h6>
+    </div>
+    </div>
+
+    <div class="col-sm-3">
+    <div class="well">
+        <h2>{{localauths}}</h2>
+        <h6>Local User Authentication Events</h6>
+    </div>
+    </div>
+
+
+
+
+</div>
+
+</div><!-- row -->
+
+{% endblock %}

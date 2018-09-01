@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+
+{% block title %}{{ user.username}}'s Profile{% endblock %}
+
+{% block content %}
+<div class="row" >
+    <h3>Details</h3>
+    <dl class="dl-horizontal">
+      <dt>Username</dt>
+      <dd>{{ user.username}}</dd>
+      <dt>Full Name</dt>
+      <dd>{{ sservice.auth.user}}</dd>
+      <dt>Total Logon Events</dt>
+      <dd >{{ user.totalauths}}</dd>
+      <dt>Unique Local Hosts</dt>
+      <dd >{{ user.uniquelocal}}</dd>
+      <dt>Unique Remote Hosts</dt>
+      <dd>{{ user.uniqueremote}}</dd>
+    </dl>
+      <br>
+    <div class="panel-group" id="accordion">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Local Hosts</a>
+            </h4>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body">
+                      {% for host in hosts_local%}
+                    <dd><a href="/host/{{host.id}}">{{host.hostname}}</a></dd>
+                    {% endfor%}
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Remote Hosts</a>
+            </h4>
+          </div>
+          <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">
+                {% for host in hosts_remote%}
+          <dd><a href="/host/{{host.id}}">{{host.hostname}}</a></dd>
+
+          {% endfor%}
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Remote Authentication Events</a>
+        </h4>
+      </div>
+      <div id="collapse3" class="panel-collapse collapse">
+        <div class="panel-body">
+    {% if auth_remote|length > 0 %}
+    <table id="remote_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Username</th>
+        <th>Destination Workstation</th>
+        <th>Source Workstation</th>
+        <th>Source Ip</th>
+        <th>Logon Type</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for auth in auth_remote %}
+        <tr>
+        <td>{{ auth.time|date:"N d, Y, h:i:s a" }}</td>
+        <td>{{ auth.user}}</td>
+        <td>{{ auth.host}}</td>
+        <td>{{ auth.sourcehost }}</td>
+        <td>{{ auth.sourceip}}</td>
+        <td>{{ auth.logontype}}</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+    </table>
+    {% endif %}
+        </div>
+      </div>
+    </div>
+
+        <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Local Authentication Events</a>
+        </h4>
+      </div>
+      <div id="collapse4" class="panel-collapse collapse">
+        <div class="panel-body">
+
+    {% if auth_local|length > 0 %}
+    <table id="local_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Username</th>
+        <th>Destination Workstation</th>
+        <th>Source Workstation</th>
+        <th>Source Ip</th>
+        <th>Logon Type</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for auth in auth_local %}
+        <tr>
+        <td>{{ auth.time}}</td>
+        <td>{{ auth.user}}</td>
+        <td>{{ auth.host}}</td>
+        <td>{{ auth.sourcehost }}</td>
+        <td>{{ auth.sourceip}}</td>
+        <td>{{ auth.logontype}}</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+    </table>
+    {% endif %}
+        </div>
+      </div>
+    </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Failed Authentication Events</a>
+            </h4>
+          </div>
+          <div id="collapse5" class="panel-collapse collapse">
+            <div class="panel-body">
+    {% if auth_failed|length > 0 %}
+      <table id="remote_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Username</th>
+            <th>Destination Workstation</th>
+            <th>Source Workstation</th>
+            <th>Source Ip</th>
+            <th>Logon Type</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for auth in auth_failed %}
+            <tr>
+            <td>{{ auth.time|date:"N d, Y, h:i:s a" }}</td>
+            <td>{{ auth.user}}</td>
+            <td>{{ auth.host}}</td>
+            <td>{{ auth.sourcehost }}</td>
+            <td>{{ auth.sourceip}}</td>
+            <td>{{ auth.logontype}}</td>
+            <td>{{ auth.status}}</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+      </table>
+    {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Local User Authentication Events</a>
+            </h4>
+          </div>
+          <div id="collapse6" class="panel-collapse collapse">
+            <div class="panel-body">
+    {% if auth_local_user|length > 0 %}
+      <table id="remote_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Username</th>
+            <th>Destination Workstation</th>
+            <th>Status</th>
+            <th>ProcName</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for auth in auth_local_user %}
+            <tr>
+            <td>{{ auth.time|date:"N d, Y, h:i:s a" }}</td>
+            <td>{{ auth.user}}</td>
+            <td>{{ auth.host}}</td>
+            <td>{{ auth.status }}</td>
+            <td>{{ auth.procname}}</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+      </table>
+    {% endif %}
+            </div>
+          </div>
+        </div>
+
+
+    </div>
+
+{% endblock %}

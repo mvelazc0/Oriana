@@ -1,0 +1,43 @@
+{% extends "base2.html" %}
+
+{% block title %}Services{% endblock %}
+
+{% block content %}
+        <link rel="stylesheet" type="text/css" href="/static/css/datatables.min.css"/>
+		<script type="text/javascript" src="/static/js/datatables.min.js"></script>
+
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$('#example').DataTable();
+			} );
+		</script>
+
+  <h2>Services</h2>
+  <p></p>
+  <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Service Name</th>
+        <th>Cmdline</th>
+		<th>Count</th>
+        <th>Ngram Score</th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+        {% for service in services%}
+        <tr>
+        <td><a href="/service/{{service.id}}">{{service.id}}</a></td>
+        <td style="word-wrap: break-word;min-width: 160px;max-width: 150px;">{{ service.servicename}}</td>
+		<td style="word-wrap: break-word;min-width: 160px;max-width: 300px;">{{ service.imagepath|truncatechars:150}}</td>
+		<td>{{ service.count}}</td>
+        <td>{{ service.ngramscore}}</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+  </table>
+
+{% endblock %}

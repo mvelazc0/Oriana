@@ -1,0 +1,43 @@
+{% extends "base2.html" %}
+
+{% block title %}Possible Lateral Movement Events{% endblock %}
+
+{% block content %}
+        <link rel="stylesheet" type="text/css" href="/static/css/datatables.min.css"/>
+		<script type="text/javascript" src="/static/js/datatables.min.js"></script>
+
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$('#example').DataTable();
+			} );
+		</script>
+  <h2>{{progressions |length}} Possible Lateral Movement Sessions</h2>
+  <p></p>
+  <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Total Duration</th>
+        <th>Uniquer Users</th>
+        <th>Uniquer Hosts</th>
+        <th># of Events</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for p in progressions %}
+        <tr>
+        <td><a href="/lmsession/{{p.id}}">{{p.id}}</a></td>
+        <td>{{ p.start}}</td>
+        <td>{{ p.end}}</td>
+        <td>{{ p.delta}}</td>
+        <td>{{ p.users}}</td>
+        <td>{{ p.hosts}}</td>
+        <td>{{ p.attacks.count}}</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+  </table>
+{% endblock %}

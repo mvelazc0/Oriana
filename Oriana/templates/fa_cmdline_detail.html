@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Hosts{% endblock %}
+
+{% block content %}
+  <h2>Command Line Utilization Details</h2>
+  <p></p>
+{% if services%}
+<div class="row" >
+  <h4>Service Creation Events</h4>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Time</th>
+        <th>Host</th>
+        <th>Service Name</th>
+        <th>Cmdline</th>
+
+      </tr>
+    </thead>
+    <tbody>
+        {% for s in services %}
+        <tr>
+        <td>{{ s.id}}</td>
+        <td>{{ s.time}}</td>
+        <td>{{ s.host}}</td>
+        <td>{{ s.service.servicename}}</td>
+        <td style="word-wrap: break-word;min-width: 160px;max-width: 300px;">{{ s.service.imagepath}}</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+    </table>
+ </div>
+{% elif tasks%}
+<div class="row" >
+  <h4>Scheduled Task Events</h4>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Time</th>
+        <th>Host</th>
+        <th>Task Name</th>
+        <th>Cmdline</th>
+
+      </tr>
+    </thead>
+    <tbody>
+        {% for t in tasks%}
+        <tr>
+        <td>{{ t.id}}</td>
+        <td>{{ t.time}}</td>
+        <td>{{ t.host}}</td>
+        <td>{{ t.task.taskname}}</td>
+        <td>{{ t.task.imagepath}}</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+    </table>
+ </div>
+{% endif %}
+
+
+{% endblock %}

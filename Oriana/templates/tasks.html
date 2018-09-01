@@ -1,0 +1,45 @@
+{% extends "base2.html" %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+        <link rel="stylesheet" type="text/css" href="/static/css/datatables.min.css"/>
+		<script type="text/javascript" src="/static/js/datatables.min.js"></script>
+
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$('#example').DataTable();
+			} );
+		</script>
+
+  <h2>Scheduled Tasks</h2>
+  <p></p>
+  <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Task Name</th>
+        <th>Cmdline</th>
+		<th>Args</th>
+        <th>Count</th>
+        <th>Ngram Score</th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+        {% for task in tasks%}
+        <tr>
+        <td><a href="/task/{{task.id}}">{{task.id}}</a></td>
+        <td>{{ task.taskname}}</td>
+		<td>{{ task.imagepath}}</td>
+		<td style="word-wrap: break-word;min-width: 160px;max-width: 300px;">{{ task.arguments|truncatechars:100}}</td>
+        <td>{{ task.count}}</td>
+        <td>{{ task.ngramscore}}</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+  </table>
+
+{% endblock %}

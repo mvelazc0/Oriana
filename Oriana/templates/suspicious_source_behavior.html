@@ -1,0 +1,39 @@
+{% extends "base2.html" %}
+
+{% block title %}Suspicious Host Behavior{% endblock %}
+
+{% block content %}
+
+        <link rel="stylesheet" type="text/css" href="/static/css/datatables.min.css"/>
+		<script type="text/javascript" src="/static/js/datatables.min.js"></script>
+
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$('#example').DataTable();
+			} );
+		</script>
+
+  <h2>{{sources |length}} Hosts with Suspicious Behavior</h2>
+  <p></p>
+  <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Hosts</th>
+        <th>Total Duration</th>
+        <th># of Leads</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for s in sources%}
+        <tr>
+        <td><a href="/shost/{{s.id}}">{{s.id}}</a></td>
+        <td>{{ s.sourceip}}</td>
+        <td>{{ s.suspicioussourcebehavior_set.all|length}}</td>
+            <td><a href="/suspicious_source_behavior/{{s.id}}">{{ s.suspicioussourcebehavior_set.all|length}}</a></td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+  </table>
+{% endblock %}

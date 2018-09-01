@@ -1,0 +1,71 @@
+{% extends "base2.html" %}
+
+{% block title %}Suspicious Behavior{% endblock %}
+
+{% block content %}
+        <link rel="stylesheet" type="text/css" href="/static/css/datatables.min.css"/>
+		<script type="text/javascript" src="/static/js/datatables.min.js"></script>
+
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$('#example').DataTable();
+			} );
+		</script>
+
+  <h2> Suspicious Behavior</h2>
+  <p></p>
+  {% if suspicious_user_behavior|length > 0 %}
+  <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>User</th>
+        <th>Start</th>
+        <th>End</th>
+
+      </tr>
+    </thead>
+    <tbody>
+        {% for s in suspicious_user_behavior %}
+        <tr>
+        <td><a href="/suspicious_user_behavior_detail/{{s.id}}">{{ s.id}}</a></td>
+        <td>{{ s.name}}</td>
+        <td>{{ s.user}}</td>
+        <td>{{ s.start}}</td>
+        <td>{{ s.end}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+  {% if suspicious_host_behavior|length > 0 %}
+  <table id="example2" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Source Host</th>
+        <th>Start</th>
+        <th>End</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for s in suspicious_host_behavior %}
+        <tr>
+        <td><a href="/suspicious_source_behavior_detail/{{s.id}}">{{ s.id}}</a></td>
+        <td>{{ s.name}}</td>
+        <td>{{ s.source}}</td>
+        <td>{{ s.start}}</td>
+        <td>{{ s.end}}</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+  </table>
+  {% endif %}
+
+
+
+{% endblock %}

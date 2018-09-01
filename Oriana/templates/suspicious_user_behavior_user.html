@@ -1,0 +1,41 @@
+{% extends "base2.html" %}
+
+{% block title %}Concurrent Sessions by User{% endblock %}
+
+{% block content %}
+
+        <link rel="stylesheet" type="text/css" href="/static/css/datatables.min.css"/>
+		<script type="text/javascript" src="/static/js/datatables.min.js"></script>
+
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$('#example').DataTable();
+			} );
+		</script>
+
+  <h2>{{suspicious_behavior |length}} Suspicious Behavior</h2>
+  <p></p>
+  <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>User</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for s in suspicious_behavior %}
+        <tr>
+        <td><a href="/suspicious_user_behavior_detail/{{s.id}}">{{s.id}}</a></td>
+        <td>{{ s.user.username}}</td>
+        <td>{{ s.start}}</td>
+        <td>{{ s.end}}</td>
+        <td>{{ s.name}}</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+  </table>
+{% endblock %}
