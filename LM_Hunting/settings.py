@@ -3,13 +3,19 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '(uiz4-h223psghb(l75no&5!599s(2&3mq&*c#%95fg&gsixo+'
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY", '&juv+3$*0=&gx+k-b9%wql@!_=o7-8&g^*l%&ulj(gcuipncrf')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = os.environ.get("DJANGO_DEBUG", True)
 
-ALLOWED_HOSTS = []
-# Application definition
+DJANGO_ALLOWED_HOSTS = [
+    allowed_host for allowed_host in str(
+        os.environ.get('DJANGO_ALLOWED_HOSTS', '127.0.0.1,0.0.0.0')).split(",")
+]
+
+ALLOWED_HOSTS = [] + DJANGO_ALLOWED_HOSTS
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -55,12 +61,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'oriana',
-	    'USER': 'User_Here',
-	    'PASSWORD': 'Pass_Here',
-        'HOST': 'localhost',
-        'PORT': '',
+        'USER': 'oriana',
+        'PASSWORD': 'oriana',
+        'HOST': 'postgres',
+        'PORT': '5432',
     }
 }
+
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
@@ -88,3 +95,5 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'Oriana', 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')

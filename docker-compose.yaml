@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  postgres:
+    restart: always
+    image: postgres:10.4
+    environment:
+      - POSTGRES_USER=oriana
+      - POSTGRES_PASSWORD=oriana
+      - POSTGRES_DB=oriana
+      - POSTGRES_HOST=postgres
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - ./config:/etc/nginx/conf.d
+      - ./static:/static
+    depends_on:
+      - web
+  web:
+    restart: always
+    environment:
+      - DJANGO_SECRET_KEY=+WUVZTtXJfBXhzI3ZbFCadIC+zBdWhfdowSIu9Ex7Qg=
+      - DJANGO_ALLOWED_HOSTS=0.0.0.0,127.0.0.1,web
+    image: web
+    build: .
+    command: >
+      bash -c "python wait_for_postgres.py &&
+               python manage.py collectstatic --noinput &&
+               python manage.py migrate &&
+               gunicorn --bind 0.0.0.0:8000 --access-logfile - LM_Hunting.wsgi:application"
+    volumes:
+      - /opt/oriana/data:/opt/oriana/data
+      - .:/code
+    expose:
+      - "8000"
+    depends_on:
+      - postgres

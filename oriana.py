@@ -66,7 +66,7 @@ if __name__ == '__main__':
             con = psycopg2.connect(dbname='', user=user, host='localhost', password=passwd)
             con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
             cur = con.cursor()
-            #cur.execute("DROP DATABASE oriana;")
+            # cur.execute("DROP DATABASE oriana;")
             cur.execute("CREATE DATABASE oriana;")
             print '\n'
             print "\t[+] Database 'oriana' created"

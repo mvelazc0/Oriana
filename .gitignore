@@ -1,2 +1,6 @@
 .idea/
 *.pyc
+Pipfile
+Pipfile.lock
+static/*
+logs/*
