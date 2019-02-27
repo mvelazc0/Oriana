@@ -1,7 +1,9 @@
 # Oriana
-Oriana is a threat hunting tool that leverages a subset of Windows events to build relationships, calculate totals and  run analytics. The results are presented in a Web layer to help defenders identify outliers and suspicious behavior on corporate environments.
+Oriana is a threat hunting tool that leverages a subset of Windows events to build relationships, calculate totals and run analytics. The results are presented in a Web layer to help defenders identify outliers and suspicious behavior on corporate environments.
 
 Oriana was built using Python, the Django Web Framework, the Postgres database and Bootstrap. The Windows Event exporting script was written in PowerShell.
+
+For more information on how Oriana works, visit the Wiki https://github.com/mvelazc0/Oriana/wiki
 
 ## Quick Start Guide
 
