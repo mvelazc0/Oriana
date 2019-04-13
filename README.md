@@ -70,7 +70,7 @@ Oriana relies on a PowerShell script to export certain Windows events into CSV f
  ```
  python oriana.py -A analytics
 ```
-Analytics details will be added to the Wiki.
+Analytics details can be found on the [Wiki](https://github.com/mvelazc0/Oriana/wiki/Hunting-Analytics).
 
  ### Start Web Server
 
