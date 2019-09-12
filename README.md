@@ -5,6 +5,9 @@ Oriana was built using Python, the Django Web Framework, the Postgres database a
 
 For more information on how Oriana works, visit the Wiki https://github.com/mvelazc0/Oriana/wiki
 
+To see Oriana in action, check the demos https://github.com/mvelazc0/Oriana/wiki/Demos
+
+
 Oriana was initially presented at Derbycon VII (https://www.youtube.com/watch?v=hVTkkkM9XDg) and released at the SANS Threat Hunting Summit (https://www.sans.org/cyber-security-summit/archives/file/summit-archive-1536265369.pdf)
 
 ## Quick Start Guide
